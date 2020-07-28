@@ -3,12 +3,15 @@ Making computer see!
 
 Teaching computer to see has wide varieties of applications.
 
-In the context of a self driving car, the car has to know where the lanes are, understand traffic signs etc
+In the context of a self driving car, on seeing the below picture, the car has to know where the lanes are in order to navigate safely.
 
+<img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/001-Color-Selection/test.jpg" width="400" height="200">
 
-## Finding Lane Lines ##
+We will look at a few techniques to find lane lines.
 
- 1. Color
+## Techniques ##
+
+ 1. Color Thresholding
  
  2. Region Masking
  
@@ -17,28 +20,22 @@ In the context of a self driving car, the car has to know where the lanes are, u
  4. Hough Transformation
 
 
-### Color ###
+### Color Thresholding ###
 
-What does color mean in case of digital images. A colored image is made of a stack of 3 images. One each for red, green and blue.
+ - A colored image is made of a stack of 3 images, each corresponding to red, green and blue channels.
+ 
+ - The above image can be split into three seperate images as shown below
+ 
+ <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/001-Color-Selection/rgb_channels.jpg" >
+ 
 
-Each of these contain pixels whose values ranging from 0 (dark) to 255 (white) 
+ - An image is a matrix of pixels whose values range from 0 (dark) to 255 (white)
+ 
+ - Since lanes are white markings on the road, these matrices can be manipulated to filter out the irrelevant darker pixels
+ <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/001-Color-Selection/color_select.jpg" width="400" height="200" >
+ 
 
 
-
-
- - The EKF is already partially implemented for you in `QuadEstimatorEKF.cpp`
-
- - Parameters for tuning the EKF are in the parameter file `QuadEstimatorEKF.txt`
-
- - When you turn on various sensors (the scenarios configure them, e.g. `Quad.Sensors += SimIMU, SimMag, SimGPS`), additional sensor plots will become available to see what the simulated sensors measure.
-
- - The EKF implementation exposes both the estimated state and a number of additional variables. In particular:
-
-   - `Quad.Est.E.X` is the error in estimated X position from true value.  More generally, the variables in `<vehicle>.Est.E.*` are relative errors, though some are combined errors (e.g. MaxEuler).
-
-   - `Quad.Est.S.X` is the estimated standard deviation of the X state (that is, the square root of the appropriate diagonal variable in the covariance matrix). More generally, the variables in `<vehicle>.Est.S.*` are standard deviations calculated from the estimator state covariance matrix.
-
-   - `Quad.Est.D` contains miscellaneous additional debug variables useful in diagnosing the filter. You may or might not find these useful but they were helpful to us in verifying the filter and may give you some ideas if you hit a block.
 
 
 ### Region Masking ###
