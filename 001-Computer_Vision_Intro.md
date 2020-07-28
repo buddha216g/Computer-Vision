@@ -31,10 +31,12 @@ We will look at a few techniques to find lane lines.
 
  - An image is a matrix of pixels whose values range from 0 (dark) to 255 (white)
  
- - Since lanes are white markings on the road, these matrices can be manipulated to filter out the irrelevant darker pixels
+ - Since lanes are white markings on the road, these matrices can be manipulated to filter out the irrelevant darker pixels as seen in the output below.
+ 
+ 
  <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/001-Color-Selection/color_select.jpg" width="400" height="200" >
  
-
+ However, this does not fully solve our problem, because you can see other white spots that are not lanes.
 
 
 
