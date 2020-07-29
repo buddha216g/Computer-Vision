@@ -31,7 +31,7 @@ We will look at a few techniques to find lane lines.
 
  - An image is a matrix of pixels whose values range from 0 (dark) to 255 (white)
  
- - Since lanes are white markings on the road, these matrices can be manipulated to filter out the irrelevant darker pixels as seen in the output below.
+ - Since lanes are white markings on the road, these can be identified, by filtering out pixels less than a certain threshold. See output below.
  
  
  <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/001-Color-Selection/color_select.jpg" width="400" height="200" >
@@ -63,7 +63,7 @@ Since we are only interested in finding edges, we first convert the colored imag
 <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/003-CannyEdgeDetection/gray-exit-ramp.jpg" width="400" height="200" >
 
 An image is a mathematical function f(x,y) of pixels, so you can peform mathematical functions on it.
-The brightness of each pixel corresponds to the strength of the gradient at that point. We find edge pixels by tracing out the pixels that follow the strongest gradients. By identifying edges, we can more easily detect objects by their shape.  The output of applying canny edge detection algorithm shows lane lines along with other edges.
+The brightness of each pixel corresponds to the strength of the gradient at that point. We find edge pixels by tracing out the pixels that follow the strongest gradients. By identifying edges, we can more easily detect objects by their shape.  The output of applying canny edge detection algorithm shows an image full of dots, that represent edges of lane lines as well as other objects.
 
 <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/003-CannyEdgeDetection/edges-exit-ramp.jpg" width="400" height="200" >
 
@@ -72,22 +72,11 @@ The brightness of each pixel corresponds to the strength of the gradient at that
 
 ### Hough Transformation ###
 
-In this next step you will be implementing the prediction step of your filter.
+Since we are interested in finding lane lines, we can model a line and then fit that model to the assortment of dots, to detect lane lines.
+To make it easier to work with lots of dots, we use hough space. A point in image space represents a line in the hough space and vice versa.
+By using polar co-ordinates, a dot in image space is transformed (hough transformation) into sine curve in hough space.
 
+Applying Hough transformation on the previous canny edge detected image, produced the following output.
+<img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/004-Hough-Transformation/hough-exit-ramp.jpg" width="400" height="200" >
 
-1. Run scenario `08_PredictState`.  This scenario is configured to use a perfect IMU (only an IMU). Due to the sensitivity of double-integration to attitude errors, we've made the accelerometer update very insignificant (`QuadEstimatorEKF.attitudeTau = 100`).  The plots on this simulation show element of your estimated state and that of the true state.  At the moment you should see that your estimated state does not follow the true state.
-
-2. In `QuadEstimatorEKF.cpp`, implement the state prediction step in the `PredictState()` functon. If you do it correctly, when you run scenario `08_PredictState` you should see the estimator state track the actual state, with only reasonably slow drift, as shown in the figure below:
-
-![predict drift](images/predict-slow-drift.png)
-
-3. Now let's introduce a realistic IMU, one with noise.  Run scenario `09_PredictionCov`. You will see a small fleet of quadcopter all using your prediction code to integrate forward. You will see two plots:
-   - The top graph shows 10 (prediction-only) position X estimates
-   - The bottom graph shows 10 (prediction-only) velocity estimates
-You will notice however that the estimated covariance (white bounds) currently do not capture the growing errors.
-
-
-## Tips and Tricks ##
-
- - When it comes to transposing matrices, `.transposeInPlace()` is the function you want to use to transpose a matrix
 
