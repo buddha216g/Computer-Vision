@@ -87,6 +87,6 @@ Application of the above techniques resulted in the car accurately identifying l
 ![Video](https://github.com/buddha216g/Computer-Vision/blob/master/P1-Finding-Lane-Lines/test_videos_output/solidWhiteRight.gif)
 
 ### Acknowledgements ###
-Sincere thanks to udacity course of self driving car, which provided the knowledge and resources to practise these techniques. The final video is the output of udacity finding lanes line project of the self driving car nanodegree.
+Sincere thanks to udacity. The final video is the output of my finding lanes line project, of the udacity self driving car nanodegree.
 
 
