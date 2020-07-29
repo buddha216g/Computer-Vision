@@ -81,3 +81,12 @@ Applying Hough transformation on the previous canny edge detected image, produce
 <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/004-Hough-Transformation/hough-exit-ramp.jpg" width="400" height="200" >
 
 
+## Results ##
+
+ 1. Images
+ 
+ 2. Videos
+ 
+ 
+![Attitude Estimation](images/07_AltitudeEstimation.gif)
+
