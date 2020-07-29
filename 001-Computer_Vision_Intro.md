@@ -7,6 +7,7 @@ In the context of a self driving car, on seeing the below picture, the car has t
 
 <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/001-Color-Selection/test.jpg" width="400" height="200">
 
+
 We will look at a few techniques to find lane lines.
 
 ## Techniques ##
@@ -32,7 +33,6 @@ We will look at a few techniques to find lane lines.
  - An image is a matrix of pixels whose values range from 0 (dark) to 255 (white)
  
  - Since lanes are white markings on the road, these can be identified, by filtering out pixels less than a certain threshold. See output below.
- 
  
  <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/001-Color-Selection/color_select.jpg" width="400" height="200" >
  
@@ -60,14 +60,13 @@ Goal is to indentify edges of the following image.
 
 Since we are only interested in finding edges, we first convert the colored image into a gray scale image.
 
+
 <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/003-CannyEdgeDetection/gray-exit-ramp.jpg" width="400" height="200" >
 
 An image is a mathematical function f(x,y) of pixels, so you can peform mathematical functions on it.
 The brightness of each pixel corresponds to the strength of the gradient at that point. We find edge pixels by tracing out the pixels that follow the strongest gradients. By identifying edges, we can more easily detect objects by their shape.  The output of applying canny edge detection algorithm shows an image full of dots, that represent edges of lane lines as well as other objects.
 
 <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/003-CannyEdgeDetection/edges-exit-ramp.jpg" width="400" height="200" >
-
-
 
 
 ### Hough Transformation ###
@@ -83,10 +82,11 @@ Applying Hough transformation on the previous canny edge detected image, produce
 
 ## Results ##
 
- 1. Images
+Application of the above techniques resulted in the car accurately identifying lanes, as shown in the video below. 
  
- 2. Videos
- 
- 
-![Attitude Estimation](images/07_AltitudeEstimation.gif)
+![Video](https://github.com/buddha216g/Computer-Vision/blob/master/P1-Finding-Lane-Lines/test_videos_output/solidWhiteRight.gif)
+
+### Acknowledgements ###
+Sincere thanks to udacity course of self driving car, which provided the knowledge and resources to practise these techniques. The final video is the output of udacity finding lanes line project of the self driving car nanodegree.
+
 
