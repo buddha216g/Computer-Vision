@@ -42,11 +42,13 @@ We will look at a few techniques to find lane lines.
 
 ### Region Masking ###
 
-Assuming the camera that took pictures of the road is mounted on a fixed position in the car, we can eliminate the regions that are irrelevant.
+Assuming the camera that took pictures of the road is mounted on a fixed position in the front of the car, the lane lines will always appear around a general region of the image.
 
-The output below depicts the lane lines when blue region was chosen. 
+Applying that region of interest to the images (blue dotted region) , we are now able to eliminate non lane lines, as shown below.
 
 <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/002-Color_plus_Region_Selection/color_region_selection.jpg"  >
+
+However, under varying lighting conditions (day, night, shade etc) and lane colors (yellow etc) the two techniques we looked at so far, may fail to detect lanes. Hence the need for more sophisticated algorithms.
 
 
 
