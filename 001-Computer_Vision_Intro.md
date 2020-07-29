@@ -77,6 +77,7 @@ To make it easier to work with lots of dots, we use hough space. A point in imag
 By using polar co-ordinates, a dot in image space is transformed (hough transformation) into sine curve in hough space.
 
 Applying Hough transformation on the previous canny edge detected image, produced the following output.
+
 <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/004-Hough-Transformation/hough-exit-ramp.jpg" width="400" height="200" >
 
 
