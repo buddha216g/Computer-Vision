@@ -86,6 +86,12 @@ Application of the above techniques resulted in the car accurately identifying l
  
 ![Video](https://github.com/buddha216g/Computer-Vision/blob/master/P1-Finding-Lane-Lines/test_videos_output/solidWhiteRight.gif)
 
+### Notes ###
+
+Even though my algorithm was able to detect lanes accurately in the above video, it might fail to detect lanes correctly in several other cases.
+Such cases could include a combination of differnt conditions like lighting (day,night,shade), curves etc
+These will be dealt with in the next article (link will be updated later)
+
 ### Acknowledgements ###
 Sincere thanks to udacity. The final video is the output of my finding lanes line project, of the udacity self driving car nanodegree.
 
