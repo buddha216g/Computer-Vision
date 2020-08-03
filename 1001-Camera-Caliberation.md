@@ -1,40 +1,30 @@
-# Computer-Vision
-Making computer see!
+# Camera Caliberation
 
-Teaching computer to see has wide varieties of applications.
 
-In the context of a self driving car, on seeing the below picture, the car has to know where the lanes are in order to navigate safely.
+Camera Calibration is used to un-distort the distorted images. Take pictures of a chessboard, pass it through find corners function to get co-ordinates to obtain image points. Object points are the true corners of a chess board. Use these two to calibrate camera (find distortion coefficients and matrix)
 
 <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/001-Color-Selection/test.jpg" width="400" height="200">
 
 
-We will look at a few techniques to find lane lines.
 
-## Techniques ##
 
- 1. Color Thresholding
+## Types of Distortion ##
+
+ 1. Radial Distortion
  
- 2. Region Masking
+ 2. Tangential Distortion
  
- 3. Canny Edge Detection
- 
- 4. Hough Transformation
 
 
-### Color Thresholding ###
 
- - A colored image is made of a stack of 3 images, each corresponding to red, green and blue channels.
+### Radial Distortion ###
+
+ - Radial Distortion : Distortion at the edges of images, so that lines or objects appear more or less curved than they actually are.
  
- - The above image can be split into three seperate images as shown below
+ - Tangential Distortion : When a camera's lens is not aligned perfectly parallel to the imaging plane, where the camera film or sensor is, it makes an image look tilted so that some objects appear farther away or closer than they actually are.
  
  <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/001-Color-Selection/rgb_channels.jpg" >
  
-
- - An image is a matrix of pixels whose values range from 0 (dark) to 255 (white)
- 
- - Since lanes are white markings on the road, these can be identified, by filtering out pixels less than a certain threshold. See output below.
- 
- <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/001-Color-Selection/color_select.jpg" width="400" height="200" >
  
  However, this does not fully solve our problem, because you can see other white spots that are not lanes.
 
@@ -42,9 +32,9 @@ We will look at a few techniques to find lane lines.
 
 ### Region Masking ###
 
-Assuming the camera that took pictures of the road is mounted on a fixed position in the front of the car, the lane lines will always appear around a general region of the image.
+Tangential Distortion : When a camera's lens is not aligned perfectly parallel to the imaging plane, where the camera film or sensor is, it makes an image look tilted so that some objects appear farther away or closer than they actually are.
 
-Applying that region of interest to the images (blue dotted region) , we are now able to eliminate non lane lines, as shown below.
+
 
 <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/002-Color_plus_Region_Selection/color_region_selection.jpg"  >
 
