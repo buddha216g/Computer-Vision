@@ -1,83 +1,83 @@
-# Computer-Vision
+# Advanced Lane Finding Project
 Making computer see!
 
-Teaching computer to see has wide varieties of applications.
-
-In the context of a self driving car, on seeing the below picture, the car has to know where the lanes are in order to navigate safely.
-
-<img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/001-Color-Selection/test.jpg" width="400" height="200">
-
-
-We will look at a few techniques to find lane lines.
-
-## Techniques ##
-
- 1. Color Thresholding
+In my previous article, i discussed about four techniques to accurately identify lanes, as shown in the video below. 
  
- 2. Region Masking
- 
- 3. Canny Edge Detection
- 
- 4. Hough Transformation
+![Video](https://github.com/buddha216g/Computer-Vision/blob/master/P1-Finding-Lane-Lines/test_videos_output/solidWhiteRight.gif)
+
+However, the car will not be able to find lanes during steep curves or under abnormal lighting conditions or when lanes are of different colors.
 
 
-### Color Thresholding ###
+We will look at a few techniques to overcome the following issues.
 
- - A colored image is made of a stack of 3 images, each corresponding to red, green and blue channels.
+## Issues ##
+
+ 1. Steep Curves
  
- - The above image can be split into three seperate images as shown below
+ 2. Different coloured lanes
  
- <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/001-Color-Selection/rgb_channels.jpg" >
+ 3. Varying lighting conditions
  
 
- - An image is a matrix of pixels whose values range from 0 (dark) to 255 (white)
+### Steep Curves ###
+
+ - A Self driving car needs to know the lane curvature, apart from speed and car dynamics, to determine the steering angle necessary to stay in the lane.
  
- - Since lanes are white markings on the road, these can be identified, by filtering out pixels less than a certain threshold. See output below.
+ - To know lane curvature, you need to map lanes from a different perspective (Birds eye view : look from above). 
+   But to get the correct perspective, you need to correct for image distortion.
  
- <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/001-Color-Selection/color_select.jpg" width="400" height="200" >
+
+ - Image distortion occurs when a camera looks at 3D objects in the real world and transforms them into a 2D image; this transformation isn't perfect
  
- However, this does not fully solve our problem, because you can see other white spots that are not lanes.
+ - So, the first step in analysing camera images, is to undo any distortion that exists.
+Types of Distortion : Radial and Tangential
+ 
+ Radial Distortion : Distortion at the edges of images, so that lines or objects appear more or less curved than they actually are.
+ 
+ Tangential Distortion : When a camera's lens is not aligned perfectly parallel to the imaging plane, where the camera film or sensor is, it makes an image look tilted so that some objects appear farther away or closer than they actually are.
+ 
+ Camera Calibration is used to un-distort the distorted images. Take pictures of a chessboard, pass it through find corners function to get co-ordinates to obtain image points. Object points are the true corners of a chess board. Use these two to calibrate camera (find distortion coefficients and matrix)
+ 
+ Birds eye view, lets us fit a polynomial to the lane lines. We then extract line curvatures from the polynomial.
+ 
+ Perspective : Objects appear smaller the farther they are from a view point, and parallel lines appear to converge to a point.
+ 
+ Mathematically, the greater the z co-ordinate of a point in an image (z corresponds to depth), the small the object appears on an image.
+ 
+ Perspective transform effectively transforms the apparent z co-ordinate. It warps the image and effectively drags points towards or pushes points away from the camera.
+ 
+ Perspective transform changes our perspective, to view the same scene from different view points and angles. Birds eye view is especially helpful for road images. Similar to un-distortion, maps points from a given image to different desired image points with a new perspective.
+ 
+ To transform an image such that we are effectively viewing objects from different angle or direction
+ 
+ Choosing 4 points manually is not the best option. Many perspective transform algorithms will programmatically detect 4 source points based on edge or corner detection, and analysing attributes like colour and surrounding pixels.
+ 
+ 
+ Gradient Thresholds: We can use gradients in a smarter way to detect steep edges that are more likely to be lanes.
+With canny we take derivatives with respect to x and y.
 
 
 
-### Region Masking ###
+### Coloured Lanes and Lighting conditions ###
 
-Assuming the camera that took pictures of the road is mounted on a fixed position in the front of the car, the lane lines will always appear around a general region of the image.
+Colour Spaces and Thresholds : In canny and sobel , we converted image to grayscale to find edges. By doing so we lost valuable colour information.
 
-Applying that region of interest to the images (blue dotted region) , we are now able to eliminate non lane lines, as shown below.
+Colour Spaces : RGB works well only for white lanes. It does not work under varying light conditions or when lanes are a different colour like yellow. Image with yellow lines, when split into RGB, only R and G channels show high pixel intensities corresponding to lane lines. Blue channel has zero yellow pixel intensity. Furthermore, R and G channels, do not show yellow lane pixel intensities under brightness and shadows.
 
-<img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/002-Color_plus_Region_Selection/color_region_selection.jpg"  >
+HSV (Hue, Saturation, Value) and HLS (Hue, Lightness, Saturation ) colour spaces.
+Hue represents colour that is independent of any change in brightness.
 
-However, under varying lighting conditions (day, night, shade etc) and lane colors (yellow etc) the two techniques we looked at so far, may fail to detect lanes. Hence the need for more sophisticated algorithms.
+Lightness and Value are different ways to measure lightness or darkness of a colour
+Saturation is the measure of colourfulness
 
+Finding Lanes : Histogram peaks
+Sliding Windows
+Search from prior : This is equivalent to using a customised region of interest for each frame of video, and should help you track the lanes through sharp curves and tricky conditions. If you lose track of the lines, go back to your sliding windows search or other method to rediscover them.
 
-
-### Canny Edge Detection ###
-
-Goal is to indentify edges of the following image. 
-
-<img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/003-CannyEdgeDetection/exit-ramp.jpg" width="400" height="200" >
-
-Since we are only interested in finding edges, we first convert the colored image into a gray scale image.
-
-
-<img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/003-CannyEdgeDetection/gray-exit-ramp.jpg" width="400" height="200" >
-
-An image is a mathematical function f(x,y) of pixels, so you can peform mathematical functions on it.
-The brightness of each pixel corresponds to the strength of the gradient at that point. We find edge pixels by tracing out the pixels that follow the strongest gradients. By identifying edges, we can more easily detect objects by their shape.  The output of applying canny edge detection algorithm shows an image full of dots, that represent edges of lane lines as well as other objects.
 
 <img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/003-CannyEdgeDetection/edges-exit-ramp.jpg" width="400" height="200" >
 
 
-### Hough Transformation ###
-
-Since we are interested in finding lane lines, we can model a line and then fit that model to the assortment of dots, to detect lane lines.
-To make it easier to work with lots of dots, we use hough space. A point in image space represents a line in the hough space and vice versa.
-By using polar co-ordinates, a dot in image space is transformed (hough transformation) into sine curve in hough space.
-
-Applying Hough transformation on the previous canny edge detected image, produced the following output.
-
-<img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/004-Hough-Transformation/hough-exit-ramp.jpg" width="400" height="200" >
 
 
 ## Results ##
