@@ -36,19 +36,24 @@ Tangential Distortion : When a camera's lens is not aligned perfectly parallel 
 
 
 
-<img src="https://github.com/buddha216g/Computer-Vision/blob/exercises/002-Color_plus_Region_Selection/color_region_selection.jpg"  >
-
-However, under varying lighting conditions (day, night, shade etc) and lane colors (yellow etc) the two techniques we looked at so far, may fail to detect lanes. Hence the need for more sophisticated algorithms.
-
-
-
-## Results ##
-
-Application of the above techniques resulted in the car accurately identifying lanes, as shown in the video below. 
+But to get the correct perspective, you need to correct for image distortion.
  
-![Video](https://github.com/buddha216g/Computer-Vision/blob/master/P1-Finding-Lane-Lines/test_videos_output/solidWhiteRight.gif)
 
-### Acknowledgements ###
-Sincere thanks to udacity. The final video is the output of my finding lanes line project, of the udacity self driving car nanodegree.
+ - Image distortion occurs when a camera looks at 3D objects in the real world and transforms them into a 2D image; this transformation isn't perfect
+ 
+ - So, the first step in analysing camera images, is to undo any distortion that exists.
+Types of Distortion : Radial and Tangential
+ 
+ Radial Distortion : Distortion at the edges of images, so that lines or objects appear more or less curved than they actually are.
+ 
+ Tangential Distortion : When a camera's lens is not aligned perfectly parallel to the imaging plane, where the camera film or sensor is, it makes an image look tilted so that some objects appear farther away or closer than they actually are.
+ 
+ Camera Calibration is used to un-distort the distorted images. Take pictures of a chessboard, pass it through find corners function to get co-ordinates to obtain image points. Object points are the true corners of a chess board. Use these two to calibrate camera (find distortion coefficients and matrix)
+ 
+ Birds eye view, lets us fit a polynomial to the lane lines. We then extract line curvatures from the polynomial.
+
+
+
+
 
 
